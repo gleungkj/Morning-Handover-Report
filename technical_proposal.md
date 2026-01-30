@@ -43,7 +43,7 @@ The following diagram shows the end-to-end flow of delivery data from the depot 
 
 **In Scope**  
 - Structured templates for manual entry and/or EV delivery info to record stocks received, tasks completed, and additional notes.  
-- Auto-compilation of completed data into a text payload with a copy button for Teams.  
+- Auto-compilation of completed data into a text payload with a copy button for Teams.  Alternatively, a submit button (as opposed to a copy button) which would send the result to the teams channel (see **Alternatives Considered**)
 - Storage layer allowing completed data to be revisited and copied until overwritten by the next day’s report.
 
 **Out of Scope**  
@@ -77,6 +77,7 @@ The following diagram shows the end-to-end flow of delivery data from the depot 
 
 **Microsoft Teams / Forms**  
 - Cannot ingest delivery data via API, would require manual entry.
+- (Optional) May be possible to set up webhook on Teams channel to listen in on an endpoint (so the payload can be sent to the channel as opposed to copy/paste), but would require an endpoint for the form to be set up
 
 **PowerApps**  
 - May be viable (other apps exist in store, e.g., Safety Super App)  
