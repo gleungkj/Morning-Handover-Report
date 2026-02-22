@@ -1,3 +1,4 @@
+---
 # .github/ISSUE_TEMPLATE/feature_request.md
 name: ✨ Feature Request
 about: Suggest an idea or new functionality for this project
