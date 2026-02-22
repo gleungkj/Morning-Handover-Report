@@ -1,0 +1,8 @@
+# .github/CODEOWNERS
+# This is a CODEOWNERS file.
+# This rule means that every file in the repository requires a review
+# from the user @gleungkj before a pull request can be merged.
+#
+# Please replace '@github_username' with your actual GitHub username.
+
+* @gleungkj

@@ -1,0 +1,56 @@
+# .github/workflows/build_environments.yml
+name: Build for Different Environments
+
+# This workflow triggers on every push to any branch
+on:
+  push:
+    branches:
+      - '**' # This pattern means the workflow runs for all branches
+
+jobs:
+  build_android_app:
+    name: Build Android App
+    runs-on: ubuntu-latest
+
+    # --- ADD THIS BLOCK ---
+    defaults:
+      run:
+        working-directory: .
+    # --------------------
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: "Debug: Show Current Path and Directory Contents"
+        run: |
+          echo "Current working directory is:"
+          pwd
+          echo "---------------------------------"
+          echo "Contents of the workspace:"
+          ls -laR
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          # This should match the Java version in your build.gradle.kts
+          java-version: '11' 
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Make Gradle wrapper executable
+        run: chmod +x ./gradlew
+
+      - name: Build Debug APK for Developer Branches
+        if: github.ref != 'refs/heads/main'
+        run: ./gradlew assembleDebug
+        # This builds the debug APK, which uses the 'debug' build type
+        # and its corresponding BASE_URL (e.g., https://api.your-development-domain.com)
+
+      - name: Build Release APK for Main Branch
+        if: github.ref == 'refs/heads/main'
+        run: ./gradlew assembleRelease
+        # This builds the release APK, which uses the 'release' build type
+        # and its corresponding BASE_URL (e.g., https://api.your-production-domain.com)
+        # Note: In a real-world scenario, this step would also require secrets
+        # for signing the release APK before uploading to the Play Store.
